@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UPDATE>
+  <FILE name="1.txt" ver="1.0.0" path="test/"/>
+  <FILE name="2.txt" ver="1.0.0" path="test/"/>
+  <FILE name="3.txt" ver="1.0.0" path="test/"/>
+  <FILE name="4.txt" ver="1.0.0" path="test/"/>
+</UPDATE>
