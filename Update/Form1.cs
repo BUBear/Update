@@ -41,7 +41,7 @@ namespace Update
         bool IsDown = false;
         bool updateCheck = false;
         bool localXmlFileExists = false;
-        string ftpServerUri = "ftp://192.168.207.130/";
+        string ftpServerUri = "ftp서버";
         string xmlName = "UpFileList.xml";
         string localXmlPath = Application.StartupPath + @"\FileList.xml";
 
@@ -98,6 +98,18 @@ namespace Update
             }
         }
 
+        private void NewFileAdd()
+        {
+            if(localFileInfo.Count < updateFileInfo.Count)
+            {
+                int count = updateFileInfo.Count-localFileInfo.Count;
+                for (int i = localFileInfo.Count; i < count; i++)
+                {
+                    updateFileList.Add(updateFileInfo[i]);
+                }
+            }
+        }
+
         private void CheckUpdate()
         {
             label5.Text = "버전 확인 ...";
@@ -134,6 +146,7 @@ namespace Update
                         listView1.Items[i].SubItems[3].Text = "오류> 확인 실패!";
                     }
                 }
+                NewFileAdd();
             }
             else if (localFileInfo.Count == 0 && updateFileInfo.Count >= 0 && !localXmlFileExists)
             {
@@ -153,6 +166,11 @@ namespace Update
 
         }
 
+        private void XmlSave(string contents)
+        {
+            File.WriteAllText(localXmlPath, contents,Encoding.UTF8);
+        }
+
 
         public int UpFileListLoad(string loadpath)
         {
@@ -169,10 +187,10 @@ namespace Update
                 {
                     using (StreamReader sr = new StreamReader(stream))
                     {
-                        string content = sr.ReadToEnd();
+                        string contents = sr.ReadToEnd();
 
                         XmlDocument doc = new XmlDocument();
-                        doc.LoadXml(content);
+                        doc.LoadXml(contents);
                         XmlNodeList root = doc.SelectNodes("UPDATE/FILE");
 
                         foreach (XmlNode str in root)
@@ -187,7 +205,7 @@ namespace Update
 
                         if (!localXmlFileExists)
                         {
-                            File.WriteAllText(localXmlPath, content);
+                            XmlSave(contents);
                         }
                     }
                 }
