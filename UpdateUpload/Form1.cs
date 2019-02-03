@@ -31,7 +31,7 @@ namespace UpdateUpload
         {
             InitializeComponent();
         }
-        string ftpServerUri = "ftp://192.168.207.130/";
+        string ftpServerUri = "ftp";
         string xmlName = @"\upFileList.xml";
         int fileCount = 0;
         bool IsDown = false;
